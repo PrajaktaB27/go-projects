@@ -1,6 +1,6 @@
 # Five Go Projects
 
-This repository contains all the different Go projects I used to learn Go
+This repository contains all the different projects I used to learn Go
 
 
 ## 01 - word counter
