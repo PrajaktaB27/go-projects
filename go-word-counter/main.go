@@ -9,22 +9,25 @@ import (
 )
 
 func main() {
-	//if 1 count lines instead of words
 	lines := flag.Bool("1", false, "Count lines")
+	bytes := flag.Bool("b", false, "Count bytes")
 	flag.Parse()
-	fmt.Println(count(os.Stdin, *lines)) //std input
+	fmt.Println(count(os.Stdin, *lines, *bytes)) //std input
 }
 
-func count(r io.Reader, countLines bool) int {
+func count(r io.Reader, countLines bool, countBytes bool) int {
 	scanner := bufio.NewScanner(r)
-	//if flag not set, count words
-	if !countLines {
+	if countLines {
+		scanner.Split(bufio.ScanLines)
+	} else if countBytes {
+		scanner.Split(bufio.ScanBytes)
+	} else {
 		scanner.Split(bufio.ScanWords)
 	}
-	wordcount := 0
+	count := 0
 	for scanner.Scan() {
-		wordcount++
+		count++
 	}
 
-	return wordcount
+	return count
 }
